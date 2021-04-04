@@ -11,6 +11,7 @@ class foodModel {
   tableName = "food";
 
   get = async (params = {}) => {
+
     let sql = `
       select 
         f.id, 
@@ -23,14 +24,24 @@ class foodModel {
         f.price_up
 
       from
-      ${this.tableName} f
+        ${this.tableName} f
 
       inner join
         country c
           ON f.iso2  = c.iso2
 
       where
-        f.state = 1`;
+        f.state = 1 
+      `;
+
+    if(params.page){
+
+      sql+= `
+        limit
+          ${params.page},${params.items}
+        `;
+
+    }
 
     let request = await query(sql);
     return request;

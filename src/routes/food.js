@@ -7,10 +7,10 @@
 
 // Require Javascript
 const express = require("express");
-
+ 
 // Import
 const foodController = require("../controllers/food");
-
+ 
 // Variables
 const router = express.Router();
 

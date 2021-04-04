@@ -1,7 +1,7 @@
 // Require Javascript
 const dotenv = require("dotenv");
 const httpException = require("../utils/httpException.utils");
-
+const url = require("url");
 // Require models
 const foodModel = require("../models/food");
 
@@ -16,10 +16,14 @@ dotenv.config();
 */
 class foodController {
   get = async (req, res, next) => {
-    let foods = await foodModel.get();
-    if (!foods.length) {
-      throw new httpException(404, "Food not found");
-    }
+    let getBrowser = url.parse(req.url, true).query;
+
+    let params = {
+      page: getBrowser.page,
+      items: getBrowser.items,
+    };
+
+    let foods = await foodModel.get(params);
     res.send(foods);
   };
 }

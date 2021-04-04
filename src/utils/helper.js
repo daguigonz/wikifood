@@ -1,4 +1,4 @@
-class helpers {
-
-}
-module.exports = new helpers;
+exports.getParameters = () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+};
