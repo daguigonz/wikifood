@@ -1,7 +1,8 @@
 // Require Javascript
 const dotenv = require("dotenv");
-const httpException = require("../utils/httpException.utils");
+const { responseJson } = require("../helpers/response");
 const url = require("url");
+
 // Require models
 const foodModel = require("../models/food");
 
@@ -10,21 +11,27 @@ dotenv.config();
 
 /*
 |--------------------------------------------------------------------------
-| Food controller 🍔🍥🍺
+| Food controller 🍔 🍥 🍺
 |--------------------------------------------------------------------------
 |
 */
 class foodController {
   get = async (req, res, next) => {
     let getBrowser = url.parse(req.url, true).query;
-
     let params = {
       page: getBrowser.page,
       items: getBrowser.items,
     };
 
     let foods = await foodModel.get(params);
-    res.send(foods);
+    let send = responseJson(
+      true,
+      "food",
+      req.baseUrl,
+      "List foods",
+      foods
+    );
+    res.send(send);
   };
 }
 

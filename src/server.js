@@ -14,7 +14,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const foodRouter = require("./routes/food");
-
+const { responseError } = require("./helpers/response");
 // Variable
 const app = express();
 const port = Number(process.env.PORT || 3331);
@@ -30,7 +30,7 @@ app.use(`/api/food`, foodRouter);
 
 // 404 error
 app.all("*", (req, res, next) => {
-  res.status(404).send("Unable to find the requested resource!");
+  res.status(404).send(responseError(404, 'servicio no encontrado'));
 });
 
 // Starting the server

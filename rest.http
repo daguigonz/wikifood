@@ -1,4 +1,0 @@
-### Get food
-Send Request
-
-GET http://localhost:3001/api/v1/food/
